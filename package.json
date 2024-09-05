@@ -1,0 +1,22 @@
+{
+  "name": "vitest-http-matchers",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test": "vitest run",
+    "test:dev": "vitest"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/lodash-es": "^4.17.12",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1",
+    "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "cookie": "^0.6.0",
+    "lodash-es": "^4.17.21"
+  }
+}
