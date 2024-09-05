@@ -8,6 +8,8 @@ type CustomMatchers<R = unknown> = {
   toHaveCookie: (name: string, expected?: string) => R;
   toHaveCookieExpired: (name: string) => R;
 
+  toHaveHeader: (name: string, expected?: string) => R;
+
   toHaveStatus: (expected: nummber) => R;
   toBeSuccessful: () => R;
   toBeServerError: () => R;

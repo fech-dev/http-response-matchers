@@ -52,6 +52,28 @@ export const responseMatchers: MatchersObject = {
     return { pass, message };
   },
 
+  toHaveHeader(received: Response, name: string, expected?: string) {
+    let pass: boolean = true;
+    let message: () => string = () => "";
+
+    if (!received.headers.has(name)) {
+      pass = false;
+      message = () => `Header "${name}" not found`;
+    }
+
+    const value = received.headers.get(name);
+    if (expected && value !== expected) {
+      pass = false;
+      message = () =>
+        `Expected header "${name}" to have value ${expected}, but received ${value}`;
+    }
+
+    return {
+      pass,
+      message,
+    };
+  },
+
   toHaveStatus(received: Response, expected: number) {
     return {
       pass: received.status === expected,
