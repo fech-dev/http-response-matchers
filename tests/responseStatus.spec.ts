@@ -1,5 +1,5 @@
 import { STATUS_MAP } from "../src/constants";
-import { getMatcherName } from "../src/utils";
+import { getStatusMatcherName } from "../src/utils";
 import { getRandomElement } from "./utils";
 
 const statusCodes = Object.values(STATUS_MAP);
@@ -47,7 +47,7 @@ describe("toBeServerError", () => {
 });
 
 Object.entries(STATUS_MAP).forEach(([statusName, status]) => {
-  const matcherKey = getMatcherName(statusName, "toHaveStatus");
+  const matcherKey = getStatusMatcherName(statusName);
 
   describe(matcherKey, () => {
     it(`should pass when status code is ${status}`, () => {
