@@ -1,20 +1,55 @@
 import type { MatchersObject } from "@vitest/expect";
-import { createStatusMatchers } from "./utils";
-import Cookie from "cookie";
+import { differenceInMilliseconds } from "date-fns";
+import { createStatusMatchers, getCookiesFromResponse } from "./utils";
 
 export const responseMatchers: MatchersObject = {
   toHaveCookie(received: Response, name: string, expected?: string) {
-    const cookies = Cookie.parse(received.headers.getSetCookie().join(""));
+    const cookies = getCookiesFromResponse(received);
 
-    const pass = !expected ? name in cookies : cookies[name] === expected;
+    let pass: boolean = true;
+    let message: () => string = () => "";
+
+    if (!(name in cookies)) {
+      pass = false;
+      message = () => `Cookie "${name}" not found`;
+    }
+
+    if (expected && cookies[name]?.value !== expected) {
+      pass = false;
+      message = () =>
+        `Expected cookie "${name}" to have value ${expected}, but received ${cookies[name].value}`;
+    }
 
     return {
       pass,
-      message: () =>
-        !expected
-          ? `Cookie "${name}" not found`
-          : `Expected cookie "${name}" to have value ${expected}, but received ${cookies[name]}`,
+      message,
     };
+  },
+
+  toHaveCookieExpired(received: Response, name: string) {
+    const cookies = getCookiesFromResponse(received);
+
+    let pass: boolean = true;
+    let message: () => string = () => "";
+
+    if (!(name in cookies)) {
+      pass = false;
+      message = () => `Cookie "${name}" not found`;
+    }
+
+    const cookie = cookies[name];
+    const hasExpires = "Expires" in cookie;
+
+    if (hasExpires) {
+      const now = new Date();
+      const expireDate = new Date(cookie.Expires!);
+
+      // if result < 0 is expired else valid
+      pass = differenceInMilliseconds(expireDate, now) < 0;
+      message = () => `Cookie "${name}" is not expired`;
+    }
+
+    return { pass, message };
   },
 
   toHaveStatus(received: Response, expected: number) {
