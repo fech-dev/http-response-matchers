@@ -13,6 +13,7 @@ export const STATUS_MAP = {
   forbidden: 403,
   notFound: 404,
   methodNotAllowed: 405,
+  requestTimeout: 408,
   conflict: 409,
   gone: 410,
   unsupportedMediaType: 415,
