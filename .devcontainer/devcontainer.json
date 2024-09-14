@@ -7,9 +7,14 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"vitest.explorer"
-			]
+				"vitest.explorer",
+				"esbenp.prettier-vscode"
+			],
+			"settings": {
+				"eslint.format.enable": true
+			}
 		}
+		
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
