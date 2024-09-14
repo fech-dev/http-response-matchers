@@ -3,6 +3,7 @@ import { differenceInMilliseconds } from "date-fns";
 import { createStatusMatchers, getCookiesFromResponse } from "./utils";
 
 export const responseMatchers: MatchersObject = {
+  // Cookies
   toHaveCookie(received: Response, name: string, expected?: string) {
     const cookies = getCookiesFromResponse(received);
 
@@ -52,6 +53,7 @@ export const responseMatchers: MatchersObject = {
     return { pass, message };
   },
 
+  // Headers
   toHaveHeader(received: Response, name: string, expected?: string) {
     let pass: boolean = true;
     let message: () => string = () => "";
@@ -74,6 +76,7 @@ export const responseMatchers: MatchersObject = {
     };
   },
 
+  // Status
   toHaveStatus(received: Response, expected: number) {
     return {
       pass: received.status === expected,
@@ -99,4 +102,20 @@ export const responseMatchers: MatchersObject = {
   },
 
   ...createStatusMatchers(),
+
+  // Json Response
+  async toBeJson(received: Response) {
+    let pass = true;
+    let message = "";
+
+    await received.json().catch(() => {
+      pass = false;
+      message = `Invalid JSON response received`;
+    });
+
+    return {
+      pass,
+      message: () => message,
+    };
+  },
 };

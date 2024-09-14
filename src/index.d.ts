@@ -13,6 +13,8 @@ type CustomMatchers<R = unknown> = {
   toHaveStatus: (expected: nummber) => R;
   toBeSuccessful: () => R;
   toBeServerError: () => R;
+
+  toBeJson: () => Promise<R>;
 } & Record<StatusMatcherKey, () => R>;
 
 declare module "vitest" {
