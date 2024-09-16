@@ -40,21 +40,27 @@ interface Cookie {
 }
 
 export function getCookiesFromResponse(response: Response) {
-  return response.headers.getSetCookie().reduce((cookies, cookieStr) => {
-    const [cookie, ...attrs] = cookieStr.split(";");
-    const [name, value] = cookie.split("=");
+  return response.headers.getSetCookie().reduce(
+    (cookies, cookieStr) => {
+      const [cookie, ...attrs] = cookieStr.split(";");
+      const [name, value] = cookie.split("=");
 
-    cookies[name] = {
-      value,
-      ...attrs.reduce((o, str) => {
-        const [key, value = true] = str.trim().split("=");
-        o[key] = value;
-        return o;
-      }, {} as Record<string, string | boolean>),
-    };
+      cookies[name] = {
+        value,
+        ...attrs.reduce(
+          (o, str) => {
+            const [key, value = true] = str.trim().split("=");
+            o[key] = value;
+            return o;
+          },
+          {} as Record<string, string | boolean>
+        ),
+      };
 
-    return cookies;
-  }, {} as Record<string, Cookie>);
+      return cookies;
+    },
+    {} as Record<string, Cookie>
+  );
 }
 
 type CookieToSerialize = CookieSerializeOptions & { value: string };
@@ -80,4 +86,19 @@ export function addCookiesToResponse(
   });
 
   return response;
+}
+
+// JSON Utils
+let jsonResponseCache: unknown = undefined;
+
+export async function getJsonResponse(response: Response) {
+  if (jsonResponseCache === undefined) {
+    jsonResponseCache = await response.json();
+  }
+
+  return jsonResponseCache;
+}
+
+export function clearCurrentJsonResponse() {
+  jsonResponseCache = undefined;
 }
