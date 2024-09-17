@@ -1,31 +1,7 @@
-import type { RawMatcherFn } from "@vitest/expect";
-import { camelCase, upperFirst } from "lodash-es";
-import { STATUS_MAP } from "./constants";
-import Cookie, { CookieSerializeOptions } from "cookie";
+import type { CookieSerializeOptions } from "cookie";
 
-export function getStatusMatcherName(name: string) {
-  return ["toHaveStatus", upperFirst(name)].join("");
-}
-
-export function createStatusMatchers() {
-  const matchers: [string, RawMatcherFn][] = Object.entries(STATUS_MAP).map(
-    ([statusName, expected]) => {
-      const name = getStatusMatcherName(statusName);
-
-      const matcher = function (received: Response) {
-        return {
-          pass: received.status === expected,
-          message: () =>
-            `Expected status code to be ${expected}, but received ${received.status}.`,
-        };
-      };
-
-      return [name, matcher];
-    }
-  );
-
-  return Object.fromEntries(matchers);
-}
+import { camelCase } from "lodash-es";
+import Cookie from "cookie";
 
 interface Cookie {
   value: string;
@@ -86,19 +62,4 @@ export function addCookiesToResponse(
   });
 
   return response;
-}
-
-// JSON Utils
-let jsonResponseCache: unknown = undefined;
-
-export async function getJsonResponse(response: Response) {
-  if (jsonResponseCache === undefined) {
-    jsonResponseCache = await response.json();
-  }
-
-  return jsonResponseCache;
-}
-
-export function clearCurrentJsonResponse() {
-  jsonResponseCache = undefined;
 }
