@@ -2,6 +2,7 @@
 import "vitest";
 import { STATUS_MAP } from "./constants";
 import { ExpectedJson } from ".";
+import { JsonStructureSchema } from "./utils/jsonStructure";
 
 type StatusKey = keyof typeof STATUS_MAP;
 type StatusMatcherKey = `${"toHaveStatus"}${Capitalize<StatusKey>}`;
@@ -22,6 +23,7 @@ export type CustomMatchers<R = unknown> = {
   toHaveJsonPath: (path: string, expected?: unknown) => Promise<R>;
   toBeJsonArray: () => Promise<R>;
   toHaveJsonLength: (expected: number, path?: string) => Promise<R>;
+  toHaveJsonStructure: (structure: JsonStructureSchema) => Promise<R>;
 } & Record<StatusMatcherKey, () => R>;
 
 declare module "vitest" {

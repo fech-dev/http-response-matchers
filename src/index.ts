@@ -1,4 +1,5 @@
 import type { MatchersObject } from "@vitest/expect";
+import type { JsonStructureSchema } from "./utils";
 import { differenceInMilliseconds } from "date-fns";
 import { get, has, isArray, isObject } from "lodash-es";
 import {
@@ -6,6 +7,8 @@ import {
   createStatusMatchers,
   getCookiesFromResponse,
   getJsonResponse,
+  parseJsonStructureSchema,
+  getStructureSchema,
 } from "./utils";
 
 export type ExpectedJson = object | Array<ExpectedJson>;
@@ -251,6 +254,30 @@ export const responseMatchers: MatchersObject = {
         `Expected json to have length "${expected}", but "${actual}" received`,
       actual,
       expected,
+    };
+  },
+
+  async toHaveJsonStructure(
+    received: Response,
+    structure: JsonStructureSchema
+  ) {
+    const data = await getJsonResponse(received);
+    const isDataArray = isArray(data);
+    const isDataObject = isObject(data);
+
+    if (!isDataObject && !isDataArray) {
+      return {
+        pass: false,
+        message: () => `Invalid JSON object or array`,
+      };
+    }
+
+    const schema = parseJsonStructureSchema(structure);
+    const dataStructure = getStructureSchema(data as Record<string, unknown>);
+
+    return {
+      pass: this.equals(dataStructure, schema),
+      message: () => `JSON Response does not match the given structure`,
     };
   },
 };

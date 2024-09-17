@@ -10,7 +10,7 @@ const body = {
   products: new Array(5)
     .fill(() => ({
       name: faker.commerce.productName(),
-      desciption: faker.commerce.productDescription(),
+      description: faker.commerce.productDescription(),
       price: faker.commerce.price(),
     }))
     .map((factory) => factory()),
@@ -233,7 +233,76 @@ describe("toHaveJsonLength", () => {
 });
 
 describe("toHaveJsonStructure", () => {
-  it.todo("should pass if json response matches json structure");
+  it("should fail if json response is not an object or array", () => {
+    const response = createJsonResponse(1);
 
-  it.todo("should fail if json response does not match json structure");
+    expect(() => expect(response).toHaveJsonStructure("")).rejects.toThrow(
+      "Invalid JSON object or array"
+    );
+  });
+
+  it("should pass if json response matches json structure (array)", async () => {
+    const response = createJsonResponse(body.user);
+
+    await expect(response).toHaveJsonStructure(["fullname", "email"]);
+  });
+
+  it("should pass if json response matches json structure (nested arrays)", async () => {
+    const response = createJsonResponse({ user: body.user });
+
+    await expect(response).toHaveJsonStructure([
+      ["user", ["fullname", "email"]],
+    ]);
+  });
+
+  it("should pass if json response matches json structure (with yaml structure)", async () => {
+    const response = createJsonResponse(body);
+
+    await expect(response).toHaveJsonStructure(`
+        - orderId
+        - user:
+          - fullname
+          - email
+        - products*:
+          - name
+          - description
+          - price
+          `);
+  });
+
+  it("should fail if json response does not match json structure (array)", () => {
+    const response = createJsonResponse(body.user);
+
+    expect(() =>
+      expect(response).toHaveJsonStructure(["name", "surname", "email"])
+    ).rejects.toThrow("JSON Response does not match the given structure");
+  });
+
+  it("should pass if json response matches json structure (nested arrays)", () => {
+    const response = createJsonResponse({ user: body.user });
+
+    expect(() =>
+      expect(response).toHaveJsonStructure([
+        ["user", ["name", "surname", "email"]],
+      ])
+    ).rejects.toThrow("JSON Response does not match the given structure");
+  });
+
+  it("should pass if json response matches json structure (with yaml structure)", () => {
+    const response = createJsonResponse(body);
+
+    expect(() =>
+      expect(response).toHaveJsonStructure(`
+        - orderId
+        - user:
+          - name
+          - surname
+          - email
+        - products*:
+          - name
+          - description
+          - price
+          `)
+    ).rejects.toThrow("JSON Response does not match the given structure");
+  });
 });
