@@ -1,7 +1,21 @@
 {
-  "name": "vitest-http-matchers",
-  "version": "0.1.0",
+  "name": "http-response-matchers",
+  "description": "Custom matchers for validating HTTP responses in testing environments",
+  "version": "0.1.0-test1",
   "type": "module",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "vitest",
+    "jest",
+    "matchers",
+    "expect.extend",
+    "expect",
+    "response",
+    "http"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
