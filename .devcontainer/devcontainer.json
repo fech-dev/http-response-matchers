@@ -1,24 +1,28 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-	"name": "Node.js & TypeScript",
+	"name": "Http Response Matchers",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"vitest.explorer",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"eamodio.gitlens",
+				"github.vscode-github-actions"
 			],
 			"settings": {
 				"eslint.format.enable": true
 			}
 		}
 		
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+	"features": {
+		// "ghcr.io/dhoeric/features/act:1": {}
+	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
