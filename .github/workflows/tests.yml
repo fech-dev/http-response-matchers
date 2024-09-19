@@ -1,16 +1,26 @@
 name: Tests
 
 on:
-  push:
-    branches: ["main"]
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  unit-tests:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: 👨‍💻 Checkout code
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 22
-      - run: yarn install
-      - run: yarn test
+          cache: "yarn"
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🧪 Run tests
+        run: yarn test
