@@ -11,6 +11,9 @@ on:
       - "package.json"
       - "yarn.lock"
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
