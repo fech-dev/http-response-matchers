@@ -1,5 +1,5 @@
 {
-  "name": "http-response-matchers",
+  "name": "vitest-response-matchers",
   "description": "Custom matchers for validating HTTP responses in testing environments",
   "version": "0.1.0",
   "type": "module",
@@ -7,6 +7,8 @@
     "src",
     "dist"
   ],
+  "main": "dist/index.js",
+  "types": "src/index.d.ts",
   "keywords": [
     "vitest",
     "jest",
