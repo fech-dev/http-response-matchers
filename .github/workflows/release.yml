@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: 👨‍💻 Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ⚙️ Set up Node.js
         uses: actions/setup-node@v4
