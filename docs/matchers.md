@@ -40,7 +40,21 @@ test('check if "expired-cookie" cookie is expired', async () => {
 
 ## Headers
 
-Comming soon...
+### `toHaveHeader(name: string, expected?: string)`
+
+Check if the response has a header with the specified `name`. If an `expected` value is provided, it also verifies that the header matches the expected value.
+
+```typescript
+test('should have the "Content-Type" header', async () => {
+  const response = await fetch("/api/users");
+  expect(response).toHaveHeader("Content-Type");
+});
+
+test('should have the "Content-Type" header with value "application/json"', async () => {
+  const response = await fetch("/api/users");
+  expect(response).toHaveHeader("Content-Type", "application/json");
+});
+```
 
 ## Status
 
