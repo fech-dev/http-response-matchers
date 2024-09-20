@@ -1,4 +1,4 @@
-# HTTP Response Matchers
+# Vitest Response Matchers
 
 A vitest matchers library for validating HTTP responses using a simple and intuitive syntax.
 
