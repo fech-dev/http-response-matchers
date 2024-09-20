@@ -1,5 +1,7 @@
 import type { MatchersObject } from "@vitest/expect";
 import type { JsonStructureSchema } from "./utils";
+
+import { afterEach } from "vitest";
 import { differenceInMilliseconds } from "date-fns";
 import { get, has, isArray, isObject } from "lodash-es";
 import {

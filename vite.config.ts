@@ -4,8 +4,17 @@ export default defineConfig({
   build: {
     lib: {
       entry: "./src/index.ts",
-      fileName: "vitest-http-matchers",
+      fileName: "index",
       formats: ["es"],
+    },
+
+    rollupOptions: {
+      external: ["lodash-es", "vitest", "cookie", "date-fns"],
+      output: {
+        manualChunks: {
+          "js-yaml": ["js-yaml"],
+        },
+      },
     },
   },
 });
