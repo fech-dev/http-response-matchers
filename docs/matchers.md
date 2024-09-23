@@ -381,4 +381,207 @@ test("should have status code 503", async () => {
 
 ## JSON
 
-Comming soon...
+### `toBeJson()`
+
+Check if the response is valid JSON.
+
+```typescript
+test("check if response is valid JSON", async () => {
+  const response = await fetch("/api/reports/daily");
+  await expect(response).toBeJson();
+});
+```
+
+### `toHaveJson(expected: object | Array<any>)`
+
+Check if the response JSON matches the expected object or array.
+
+```typescript
+test("check if response JSON matches expected object", async () => {
+  const response = await fetch("/api/users/1");
+
+  await expect(response).toHaveJson({
+    id: 1,
+    name: "Jon",
+    surname: "Doe",
+    email: "jon.doe@email.com",
+  });
+});
+```
+
+### `toBeJsonObject()`
+
+Check if the response JSON is an object.
+
+```typescript
+test("check if response JSON is an object", async () => {
+  const response = await fetch("/api/users/1");
+  await expect(response).toBeJsonObject();
+});
+```
+
+### `toHaveJsonPath(path: string, expected?: any)`
+
+Check if the JSON response contains the specified path, and optionally check if it matches the expected value.
+
+```typescript
+test('check if response JSON contains path "id"', async () => {
+  const response = await fetch("/api/users/2");
+  await expect(response).toHaveJsonPath("id");
+});
+
+test('check if response JSON path "id" has value 1', async () => {
+  const response = await fetch("/api/users/2");
+  await expect(response).toHaveJsonPath("id", 1);
+});
+
+test('check if response JSON path "role.name" has value Admin', async () => {
+  const response = await fetch("/api/users/2");
+  await expect(response).toHaveJsonPath("role.name", "Admin");
+});
+```
+
+### `toBeJsonArray()`
+
+Check if the response JSON is an array.
+
+```typescript
+test("check if response JSON is an array", async () => {
+  const response = await fetch("/api/users");
+  await expect(response).toBeJsonArray();
+});
+```
+
+### `toHaveJsonLength(expected: number, path?: string)`
+
+Check if the JSON response (or a specific array at a given path) has the expected length.
+
+```typescript
+test("check if response JSON array has length 3", async () => {
+  const response = await fetch("/api/users");
+  expect(response).toHaveJsonLength(10);
+});
+
+test('check if JSON path "role.permissions" has length 20', async () => {
+  const response = await fetch("/api/users/1");
+  expect(response).toHaveJsonLength(20, "role.permissions");
+});
+```
+
+### `toHaveJsonStructure(structure: JsonStructureSchema)`
+
+Check if the JSON response has the given structure
+
+#### Structure
+
+The `structure` param can be defined as a yaml string or an array.
+
+#### One level structure
+
+::: code-group
+
+```typescript [Array syntax]
+await expect(response).toHaveJsonStructure(["id", "name", "surname", "email"]);
+```
+
+```typescript [Yaml syntax]
+await expect(response).toHaveJsonStructure(`
+  - id
+  - name
+  - surname
+  - email
+`);
+```
+
+:::
+
+These examples expect that the JSON response object has: id, name, surname and email properties.
+
+```json
+{
+  "id": 1
+  "name": "Jon"
+  "surname": "Doe"
+  "email": "jon.doe@email.com"
+}
+```
+
+If any of those properties are missing, the test will fail.
+
+:::tip
+For simple object structures is advised to use the array syntax since the yaml parsing will be skipped and tests will run more faster.
+:::
+
+#### Defining deep structures
+
+Given this JSON object:
+
+```json
+{
+  "id": 1
+  "name": "Jon"
+  "surname": "Doe"
+  "email": "jon.doe@email.com",
+  "role": {
+    "id": 1,
+    "name": "Admin",
+    "permissions": [
+      { "id": 1, "name": "list.users"},
+      { "id": 2, "name": "create.users"},
+      { "id": 3, "name": "delete.users"}
+    ]
+  }
+}
+```
+
+We can define the structure like this:
+
+::: code-group
+
+```typescript [Array syntax]
+await expect(response).toHaveJsonStructure([
+  "id",
+  "name",
+  "surname",
+  "email",
+  ["role", [
+    "id", 
+    "name", 
+    ["permissions*", [
+        "id", 
+        "name"
+      ]]
+  ]],
+]);
+```
+
+```typescript [Yaml syntax]
+await expect(response).toHaveJsonStructure(`
+  - id
+  - name
+  - surname
+  - email
+  - role:  
+    - id
+    - name
+    - permissions*:
+      - id
+      - name
+`);
+```
+
+:::
+
+In the Array Syntax, we define an array where the first element is the name of the nested object and the second element is another array that describes its structure.
+
+Since `Array syntax` can be less readable, especially when using very complex object structures, you can use `Yaml syntax`.
+
+Each nested object is define by a yaml object with a property (the name of the nested object) and as value an array representing the nested object structure.
+
+
+#### Arrays structures
+
+As shown in the previous section, the json path `role.permissions` is an array of objects. 
+To describe this structure, you have to add the symbol `*` as suffix in the array key. 
+
+This ensures that each object in the array matches the given structure.
