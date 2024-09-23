@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/fech-dev/vitest-response-matchers/compare/v1.0.1...v1.0.2) (2024-09-23)
+
+
+### Bug Fixes
+
+* remove wrong import ([ce6dc08](https://github.com/fech-dev/vitest-response-matchers/commit/ce6dc08bf9182f995ea95b4f2ef1150a7eb0d32c))
+
 ## [1.0.1](https://github.com/fech-dev/vitest-response-matchers/compare/v1.0.0...v1.0.1) (2024-09-23)
 
 
