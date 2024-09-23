@@ -11,15 +11,15 @@ This package is a collection of vitest matchers that allows you to write express
 ::: code-group
 
 ```bash [yarn]
-yarn add -D http-response-matchers
+yarn add -D vitest-response-matchers
 ```
 
 ```bash [pnpm]
-pnpm add -D http-response-matchers
+pnpm add -D vitest-response-matchers
 ```
 
 ```bash [npm]
-npm install --save-dev http-response-matchers
+npm install --save-dev vitest-response-matchers
 ```
 
 :::
