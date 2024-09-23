@@ -1,10 +1,10 @@
 # Matchers
 
-[[toc]]
-
 ## Cookies
 
-### `toHaveCookie(name: string, expected?: string)`
+### toHaveCookie
+
+`toHaveCookie(name: string, expected?: string)`
 
 Check if the response contains a cookie with the specified `name`. If an `expected` value is provided, it will also verify that the cookie has the expected value.
 
@@ -28,7 +28,9 @@ describe("User Profile Settings", () => {
 
 ---
 
-### `toHaveCookieExpired(name: string)`
+### toHaveCookieExpired
+
+`toHaveCookieExpired(name: string)`
 
 Check if the cookie with the specified `name` is expired.
 
@@ -42,7 +44,9 @@ test('check if "expired-cookie" cookie is expired', async () => {
 
 ## Headers
 
-### `toHaveHeader(name: string, expected?: string)`
+### toHaveHeader
+
+`toHaveHeader(name: string, expected?: string)`
 
 Check if the response has a header with the specified `name`. If an `expected` value is provided, it also verifies that the header matches the expected value.
 
@@ -60,7 +64,9 @@ test('should have the "Content-Type" header with value "application/json"', asyn
 
 ## Status
 
-### `toHaveStatus(expected: number)`
+### toHaveStatus
+
+`toHaveStatus(expected: number)`
 
 Check if the response has the expected status code.
 
@@ -73,7 +79,7 @@ describe("GET /users", () => {
 });
 ```
 
-### `toBeSuccessful()`
+### toBeSuccessful
 
 Check if the response has a successful status code (2xx).
 
@@ -93,7 +99,7 @@ describe("PATCH /users/:id", () => {
 });
 ```
 
-### `toBeServerError()`
+### toBeServerError
 
 Check if the response has a server error status code (5xx).
 
@@ -107,7 +113,7 @@ describe("DELETE /users/:id", () => {
 });
 ```
 
-### `toHaveStatusOk()`
+### toHaveStatusOk
 
 Check if the response has status code 200.
 
@@ -118,7 +124,7 @@ test("should have status code 200", async () => {
 });
 ```
 
-### toHaveStatusCreated()
+### toHaveStatusCreated
 
 Check if the response has the status code 201 (Created).
 
@@ -129,7 +135,7 @@ test("should have status code 201", async () => {
 });
 ```
 
-### toHaveStatusAccepted()
+### toHaveStatusAccepted
 
 Check if the response has the status code 202
 
@@ -140,7 +146,7 @@ test("should have status code 202", async () => {
 });
 ```
 
-### toHaveStatusNoContent()
+### toHaveStatusNoContent
 
 Check if the response has the status code 204
 
@@ -153,7 +159,7 @@ describe("DELETE /users/:id", () => {
 });
 ```
 
-### toHaveStatusMovedPermanently()
+### toHaveStatusMovedPermanently
 
 Check if the response has the status code 301
 
@@ -164,7 +170,7 @@ test("should have status code 301", async () => {
 });
 ```
 
-### toHaveStatusFound()
+### toHaveStatusFound
 
 Check if the response has the status code 302
 
@@ -175,7 +181,7 @@ test("should have status code 302", async () => {
 });
 ```
 
-### toHaveStatusBadRequest()
+### toHaveStatusBadRequest
 
 Check if the response has the status code 400
 
@@ -196,7 +202,7 @@ test("should have status code 400", async () => {
 });
 ```
 
-### toHaveStatusUnauthorized()
+### toHaveStatusUnauthorized
 
 Check if the response has the status code 401
 
@@ -207,7 +213,7 @@ test("should have status code 401", async () => {
 });
 ```
 
-### toHaveStatusPaymentRequired()
+### toHaveStatusPaymentRequired
 
 Check if the response has the status code 402
 
@@ -227,7 +233,7 @@ test("should have status code 402", async () => {
 });
 ```
 
-### toHaveStatusForbidden()
+### toHaveStatusForbidden
 
 Check if the response has the status code 403
 
@@ -236,7 +242,7 @@ const response = await fetch("/api/admin/users");
 expect(response).toHaveStatusForbidden();
 ```
 
-### toHaveStatusNotFound()
+### toHaveStatusNotFound
 
 Check if the response has the status code 404
 
@@ -247,7 +253,7 @@ test("should have status code 404", async () => {
 });
 ```
 
-### toHaveStatusMethodNotAllowed()
+### toHaveStatusMethodNotAllowed
 
 Check if the response has the status code 405
 
@@ -258,7 +264,7 @@ test("should have status code 405", async () => {
 });
 ```
 
-### toHaveStatusRequestTimeout()
+### toHaveStatusRequestTimeout
 
 Check if the response has the status code 408
 
@@ -269,7 +275,7 @@ test("should have status code 408", async () => {
 });
 ```
 
-### toHaveStatusConflict()
+### toHaveStatusConflict
 
 Check if the response has the status code 409
 
@@ -290,7 +296,7 @@ test("should have status code 409", async () => {
 });
 ```
 
-### toHaveStatusGone()
+### toHaveStatusGone
 
 Check if the response has the status code 410
 
@@ -301,7 +307,7 @@ test("should have status code 410", async () => {
 });
 ```
 
-### toHaveStatusUnsupportedMediaType()
+### toHaveStatusUnsupportedMediaType
 
 Check if the response has the status code 415
 
@@ -320,7 +326,7 @@ test("should have status code 415", async () => {
 });
 ```
 
-### toHaveStatusUnprocessable()
+### toHaveStatusUnprocessable
 
 Check if the response has the status code 422
 
@@ -341,7 +347,7 @@ test("should have status code 422", async () => {
 });
 ```
 
-### toHaveStatusTooManyRequests()
+### toHaveStatusTooManyRequests
 
 Check if the response has the status code 429
 
@@ -357,7 +363,7 @@ test("should have status code 429", async () => {
 });
 ```
 
-### toHaveStatusInternalServerError()
+### toHaveStatusInternalServerError
 
 Check if the response has the status code 500
 
@@ -368,7 +374,7 @@ test("should have status code 500", async () => {
 });
 ```
 
-### toHaveStatusServiceUnavailable()
+### toHaveStatusServiceUnavailable
 
 Check if the response has the status code 503
 
@@ -381,7 +387,7 @@ test("should have status code 503", async () => {
 
 ## JSON
 
-### `toBeJson()`
+### toBeJson
 
 Check if the response is valid JSON.
 
@@ -392,7 +398,9 @@ test("check if response is valid JSON", async () => {
 });
 ```
 
-### `toHaveJson(expected: object | Array<any>)`
+### toHaveJson
+
+`toHaveJson(expected: object | Array<any>)`
 
 Check if the response JSON matches the expected object or array.
 
@@ -409,7 +417,7 @@ test("check if response JSON matches expected object", async () => {
 });
 ```
 
-### `toBeJsonObject()`
+### toBeJsonObject
 
 Check if the response JSON is an object.
 
@@ -420,7 +428,9 @@ test("check if response JSON is an object", async () => {
 });
 ```
 
-### `toHaveJsonPath(path: string, expected?: any)`
+### toHaveJsonPath
+
+`toHaveJsonPath(path: string, expected?: any)`
 
 Check if the JSON response contains the specified path, and optionally check if it matches the expected value.
 
@@ -441,7 +451,7 @@ test('check if response JSON path "role.name" has value Admin', async () => {
 });
 ```
 
-### `toBeJsonArray()`
+### toBeJsonArray
 
 Check if the response JSON is an array.
 
@@ -452,7 +462,9 @@ test("check if response JSON is an array", async () => {
 });
 ```
 
-### `toHaveJsonLength(expected: number, path?: string)`
+### toHaveJsonLength
+
+`toHaveJsonLength(expected: number, path?: string)`
 
 Check if the JSON response (or a specific array at a given path) has the expected length.
 
@@ -468,7 +480,9 @@ test('check if JSON path "role.permissions" has length 20', async () => {
 });
 ```
 
-### `toHaveJsonStructure(structure: JsonStructureSchema)`
+### toHaveJsonStructure
+
+`toHaveJsonStructure(structure: JsonStructureSchema)`
 
 Check if the JSON response has the given structure
 
@@ -481,7 +495,12 @@ The `structure` param can be defined as a yaml string or an array.
 ::: code-group
 
 ```typescript [Array syntax]
-await expect(response).toHaveJsonStructure(["id", "name", "surname", "email"]);
+await expect(response).toHaveJsonStructure([
+  "id", 
+  "name", 
+  "surname", 
+  "email"
+]);
 ```
 
 ```typescript [Yaml syntax]
@@ -548,9 +567,9 @@ await expect(response).toHaveJsonStructure([
     "id", 
     "name", 
     ["permissions*", [
-        "id", 
-        "name"
-      ]]
+      "id", 
+      "name"
+    ]]
   ]],
 ]);
 ```
@@ -578,10 +597,9 @@ Since `Array syntax` can be less readable, especially when using very complex ob
 
 Each nested object is define by a yaml object with a property (the name of the nested object) and as value an array representing the nested object structure.
 
-
 #### Arrays structures
 
-As shown in the previous section, the json path `role.permissions` is an array of objects. 
-To describe this structure, you have to add the symbol `*` as suffix in the array key. 
+As shown in the previous section, the json path `role.permissions` is an array of objects.
+To describe this structure, you have to add the symbol `*` as suffix in the array key.
 
 This ensures that each object in the array matches the given structure.
