@@ -13,7 +13,7 @@ export type CustomMatchers<R = unknown> = {
 
   toHaveHeader: (name: string, expected?: string) => R;
 
-  toHaveStatus: (expected: nummber) => R;
+  toHaveStatus: (expected: number) => R;
   toBeSuccessful: () => R;
   toBeServerError: () => R;
 
