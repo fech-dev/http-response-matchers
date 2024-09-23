@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/fech-dev/vitest-response-matchers/compare/v1.0.0...v1.0.1) (2024-09-23)
+
+
+### Bug Fixes
+
+* typo on type ([df0a29d](https://github.com/fech-dev/vitest-response-matchers/commit/df0a29d90148379b91e0cb812caf8d18d410f8ca))
+
 # 1.0.0 (2024-09-20)
 
 
