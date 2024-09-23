@@ -1,21 +1,16 @@
 import type { MatchersObject } from "@vitest/expect";
 import type { JsonStructureSchema } from "./utils";
 
-import { afterEach } from "vitest";
 import { differenceInMilliseconds } from "date-fns";
 import { get, has, isArray, isObject } from "lodash-es";
 import {
-  clearCurrentJsonResponse,
   createStatusMatchers,
   getCookiesFromResponse,
-  getJsonResponse,
   parseJsonStructureSchema,
   getStructureSchema,
 } from "./utils";
 
 export type ExpectedJson = object | Array<ExpectedJson>;
-
-afterEach(clearCurrentJsonResponse);
 
 export const responseMatchers: MatchersObject = {
   // Cookies
@@ -123,7 +118,7 @@ export const responseMatchers: MatchersObject = {
     let pass: boolean;
 
     try {
-      await getJsonResponse(received);
+      await received.clone().json();
       pass = true;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
@@ -146,7 +141,7 @@ export const responseMatchers: MatchersObject = {
       return toBeJsonMatch;
     }
 
-    const actual = await getJsonResponse(received);
+    const actual = await received.clone().json();
 
     return {
       pass: this.equals(actual, expected),
@@ -166,7 +161,7 @@ export const responseMatchers: MatchersObject = {
       return toBeJsonMatch;
     }
 
-    const content = JSON.stringify(await getJsonResponse(received));
+    const content = JSON.stringify(await received.clone().json());
 
     return {
       pass: !!content && content.startsWith("{") && content.endsWith("}"),
@@ -175,7 +170,7 @@ export const responseMatchers: MatchersObject = {
   },
 
   async toHaveJsonPath(received: Response, path: string, expected?: unknown) {
-    const data = await getJsonResponse(received);
+    const data = await received.clone().json();
     const hasPath = has(data, path);
 
     if (!hasPath || expected === undefined) {
@@ -206,7 +201,7 @@ export const responseMatchers: MatchersObject = {
       return toBeJsonMatch;
     }
 
-    const content = JSON.stringify(await getJsonResponse(received));
+    const content = JSON.stringify(await received.clone().json());
 
     return {
       pass: !!content && content.startsWith("[") && content.endsWith("]"),
@@ -215,7 +210,7 @@ export const responseMatchers: MatchersObject = {
   },
 
   async toHaveJsonLength(received: Response, expected: number, path?: string) {
-    const data = await getJsonResponse(received);
+    const data = await received.clone().json();
     const isDataObject = isObject(data);
     const isDataArray = isArray(data);
 
@@ -263,7 +258,7 @@ export const responseMatchers: MatchersObject = {
     received: Response,
     structure: JsonStructureSchema
   ) {
-    const data = await getJsonResponse(received);
+    const data = await received.clone().json();
     const isDataArray = isArray(data);
     const isDataObject = isObject(data);
 
