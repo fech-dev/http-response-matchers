@@ -56,4 +56,6 @@ export default defineConfig({
       },
     ],
   },
+
+  base: "/vitest-response-matchers/",
 });
