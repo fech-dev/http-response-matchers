@@ -82,4 +82,4 @@ describe("POST /auth/login", () => {
 });
 ```
 
-Read the [docs](https://fech-dev.github.io/vitest-http-matchers) for the full list of matchers.
+Read the [docs](https://fech-dev.github.io/vitest-response-matchers/) for the full list of matchers.
